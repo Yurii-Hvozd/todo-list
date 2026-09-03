@@ -4,6 +4,7 @@ from django.views import generic
 from django.shortcuts import get_object_or_404
 from todo.forms import TaskForm
 from todo.models import Task, Tag
+from django.views.decorators.http import require_POST
 
 
 class TaskListView(generic.ListView):
@@ -53,6 +54,7 @@ class TagDeleteView(generic.DeleteView):
     success_url = reverse_lazy("todo_list:tag_list")
 
 
+@require_POST
 def toggle_task_status(request, pk):
     task = get_object_or_404(Task, id=pk)
 
