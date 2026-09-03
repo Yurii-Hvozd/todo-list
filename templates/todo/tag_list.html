@@ -1,17 +1,42 @@
 {% extends "base.html" %}
+
+{% block title %}Tags — Todo{% endblock %}
+
 {% block content %}
-  <h1>Tag List <a href="{% url "todo_list:tag_create" %}">Add</a>
-  </h1>
-  {% if tag_list %}
-    {% for tag in tag_list %}
-      {{ tag.name }}
-      <a href="{% url 'todo_list:tag_update' pk=tag.id %}">
-        Update
-      </a>
-      <a href="{% url 'todo_list:tag_confirm_delete' pk=tag.id %}">
-        delete
-      </a>
-      <hr>
-    {% endfor %}
-  {% endif %}
+  <div class="page-header">
+    <div>
+      <span class="eyebrow">Organization</span>
+      <h1>Tags</h1>
+    </div>
+    <a class="btn btn-primary" href="{% url 'todo_list:tag_create' %}">Add tag</a>
+  </div>
+
+  <section class="card table-card">
+    <div class="table-head">
+      <span>Name</span>
+      <span>Update</span>
+      <span>Delete</span>
+    </div>
+
+    {% if tag_list %}
+      <div class="table-body">
+        {% for tag in tag_list %}
+          <div class="table-row">
+            <div class="tag-name">{{ tag.name }}</div>
+            <div>
+              <a class="btn btn-secondary btn-small" href="{% url 'todo_list:tag_update' pk=tag.id %}">Update</a>
+            </div>
+            <div>
+              <a class="btn btn-ghost-danger btn-small" href="{% url 'todo_list:tag_confirm_delete' pk=tag.id %}">Delete</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <strong>No tags yet</strong>
+        <span>Create your first tag to organize tasks.</span>
+      </div>
+    {% endif %}
+  </section>
 {% endblock %}

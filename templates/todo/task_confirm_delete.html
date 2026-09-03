@@ -1,10 +1,16 @@
 {% extends "base.html" %}
 
-{% block content %}
-  <h1>Delete task {{ task.content }}?</h1>
-  <form action="" method="post">
-    {% csrf_token %}
+{% block title %}Delete task — Todo{% endblock %}
 
-    <input type="submit" value="Yes" class="btn btn-danger">
-  </form>
+{% block content %}
+  <section class="card confirm-card">
+    <span class="eyebrow danger-eyebrow">Confirmation</span>
+    <h1>Delete task <span>“{{ task.content }}”</span>?</h1>
+    <p>This action cannot be undone.</p>
+    <form action="" method="post" class="confirm-actions">
+      {% csrf_token %}
+      <a href="{% url 'todo_list:task_list' %}" class="btn btn-secondary">Cancel</a>
+      <input type="submit" value="Yes, delete" class="btn btn-danger">
+    </form>
+  </section>
 {% endblock %}

@@ -1,12 +1,24 @@
 {% extends "base.html" %}
 
+{% block title %}{{ object|yesno:"Update,Create" }} tag — Todo{% endblock %}
 
 {% block content %}
-  <h1>{{ object|yesno:"Update,Create" }} tag</h1>
-  <form action="" method="post" novalidate>
-    {% csrf_token %}
-    {{ form.as_p }}
+  <div class="form-page">
+    <div class="page-header">
+      <div>
+        <span class="eyebrow">Tags</span>
+        <h1>{{ object|yesno:"Update,Create" }} tag</h1>
+      </div>
+    </div>
 
-    <input type="submit" value="Submit" class="btn btn-primary">
-  </form>
+    <section class="card form-card">
+      <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+          <input type="submit" value="Save tag" class="btn btn-primary">
+        </div>
+      </form>
+    </section>
+  </div>
 {% endblock %}

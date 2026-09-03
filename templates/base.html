@@ -1,17 +1,24 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Todo List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Simple and elegant Todo List application">
+  <title>{% block title %}Todo List{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-{% block sidebar %}
-  {% include "includes/sidebar.html" %}
-{% endblock %}
-{% block content %}
-{% endblock %}
+  <div class="app-shell">
+    {% block sidebar %}
+      {% include "includes/sidebar.html" %}
+    {% endblock %}
+
+    <main class="main-content">
+      <div class="content-container">
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+  </div>
 </body>
 </html>

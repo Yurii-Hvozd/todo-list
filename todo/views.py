@@ -1,15 +1,17 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from todo.forms import TaskForm
 from todo.models import Task, Tag
+
 
 class TaskListView(generic.ListView):
     model = Task
 
     def get_queryset(self):
         return Task.objects.prefetch_related("tags")
+
 
 class TaskCreateView(generic.CreateView):
     model = Task
@@ -24,12 +26,15 @@ class TaskUpdateView(generic.UpdateView):
     success_url = reverse_lazy("todo_list:task_list")
     form_class = TaskForm
 
+
 class TaskDeleteView(generic.DeleteView):
     model = Task
     success_url = reverse_lazy("todo_list:task_list")
 
+
 class TagListView(generic.ListView):
     model = Tag
+
 
 class TagCreateView(generic.CreateView):
     model = Tag
@@ -49,18 +54,13 @@ class TagDeleteView(generic.DeleteView):
 
 
 def toggle_task_status(request, pk):
-    # Отримуємо конкретне завдання за його id (або повертаємо 404, якщо не знайдено)
     task = get_object_or_404(Task, id=pk)
 
-    # Змінюємо статус на протилежний
     if task.is_done:
         task.is_done = False
     else:
         task.is_done = True
 
-    # Обов'язково зберігаємо зміни в базу даних
     task.save()
 
-    # Перенаправляємо користувача назад на головну сторінку зі списком завдань
-    # Замініть 'todo:index' на назву вашого головного маршруту
     return HttpResponseRedirect(reverse_lazy("todo_list:task_list"))
