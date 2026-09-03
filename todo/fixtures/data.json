@@ -1,0 +1,94 @@
+[
+  {
+    "model": "todo.tag",
+    "pk": 1,
+    "fields": { "name": "shop" }
+  },
+  {
+    "model": "todo.tag",
+    "pk": 2,
+    "fields": { "name": "home" }
+  },
+  {
+    "model": "todo.tag",
+    "pk": 3,
+    "fields": { "name": "work" }
+  },
+  {
+    "model": "todo.task",
+    "pk": 1,
+    "fields": {
+      "content": "Buy 3 carrots and 1 pineapple",
+      "created_at": "2022-04-18T19:07:00Z",
+      "deadline": null,
+      "is_done": false,
+      "tags": [1]
+    }
+  },
+  {
+    "model": "todo.task",
+    "pk": 2,
+    "fields": {
+      "content": "Clean windows",
+      "created_at": "2022-04-19T14:30:00Z",
+      "deadline": "2022-04-19T14:30:00Z",
+      "is_done": true,
+      "tags": [1, 2]
+    }
+  },
+  {
+    "model": "todo.task",
+    "pk": 3,
+    "fields": {
+      "content": "Complete project",
+      "created_at": "2022-04-19T13:14:00Z",
+      "deadline": "2022-04-19T18:30:00Z",
+      "is_done": true,
+      "tags": [3]
+    }
+  },
+  {
+    "model": "todo.task",
+    "pk": 4,
+    "fields": {
+      "content": "Buy milk and bread",
+      "created_at": "2026-09-01T10:00:00Z",
+      "deadline": null,
+      "is_done": false,
+      "tags": [1]
+    }
+  },
+  {
+    "model": "todo.task",
+    "pk": 5,
+    "fields": {
+      "content": "Fix the kitchen sink",
+      "created_at": "2026-09-02T12:00:00Z",
+      "deadline": "2026-09-05T18:00:00Z",
+      "is_done": false,
+      "tags": [2]
+    }
+  },
+  {
+    "model": "todo.task",
+    "pk": 6,
+    "fields": {
+      "content": "Prepare presentation for meeting",
+      "created_at": "2026-08-30T09:00:00Z",
+      "deadline": "2026-09-03T15:00:00Z",
+      "is_done": true,
+      "tags": [3]
+    }
+  },
+  {
+    "model": "todo.task",
+    "pk": 7,
+    "fields": {
+      "content": "Water the plants",
+      "created_at": "2026-09-03T08:30:00Z",
+      "deadline": null,
+      "is_done": false,
+      "tags": [2]
+    }
+  }
+]
