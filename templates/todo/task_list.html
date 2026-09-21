@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Todo List — Todo{% endblock %}
+
+{% block content %}
+  <div class="page-header task-page-header">
+    <div>
+      <span class="eyebrow">Your workspace</span>
+      <h1>TODO list</h1>
+    </div>
+    <a class="btn btn-primary" href="{% url 'todo_list:task_create' %}">Add task</a>
+  </div>
+
+  {% if task_list %}
+    <section class="task-list">
+      {% for task in task_list %}
+        <article class="task-card {% if task.is_done %}is-complete{% endif %}">
+          <div class="task-main">
+            <div class="task-title-row">
+              <h2>{{ task.content }}</h2>
+              {% if task.is_done %}
+                <span class="status status-done">Done</span>
+              {% else %}
+                <span class="status status-pending">Not done</span>
+              {% endif %}
+            </div>
+
+            <div class="task-meta">
+              <span>Created: {{ task.created_at }}</span>
+              {% if task.deadline %}
+                <span class="deadline">Deadline: {{ task.deadline }}</span>
+              {% endif %}
+            </div>
+
+            {% with tags=task.tags.all %}
+              {% if tags %}
+                <div class="task-tags">
+                  <span class="meta-label">Tags:</span>
+                  {% for tag in tags %}
+                    <span class="tag-pill">{{ tag.name }}</span>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+            <div class="task-actions task-actions-mobile">
+              <a href="{% url 'todo_list:task_update' pk=task.id %}">Update</a>
+              <a class="danger-link" href="{% url 'todo_list:task_confirm_delete' pk=task.id %}">Delete</a>
+            </div>
+          </div>
+
+          <div class="task-side">
+            <form action="{% url 'todo_list:toggle_task_status' pk=task.pk %}" method="POST">
+              {% csrf_token %}
+              {% if task.is_done %}
+                <button class="btn btn-secondary" type="submit">Undo</button>
+              {% else %}
+                <button class="btn btn-success" type="submit">Complete</button>
+              {% endif %}
+            </form>
+          </div>
+
+          <div class="task-actions task-actions-desktop">
+            <a href="{% url 'todo_list:task_update' pk=task.id %}">Update</a>
+            <a class="danger-link" href="{% url 'todo_list:task_confirm_delete' pk=task.id %}">Delete</a>
+          </div>
+        </article>
+      {% endfor %}
+    </section>
+  {% else %}
+    <section class="card empty-state task-empty">
+      <strong>Your list is empty</strong>
+      <span>Add a task to get started.</span>
+    </section>
+  {% endif %}
+{% endblock %}
